@@ -1,0 +1,39 @@
+body{
+  background: linear-gradient(to top, #fac8f6, #fff0fc);
+}
+
+.connect-dots-container {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.game-board {
+  border-radius: 10px;
+  background-color: rgb(250, 237, 247);
+  margin-top: 20px;
+  user-select: none;
+}
+
+.dot {
+  cursor: pointer;
+  transition: fill 0.3s;
+}
+
+.next-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #fac8f6;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.congrats-text {
+  margin-top: 20px;
+  font-weight: bold;
+}

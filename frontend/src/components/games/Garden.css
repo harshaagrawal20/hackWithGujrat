@@ -1,7 +1,292 @@
+/* body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(to top, #e2f9e1, #fdfdfd);
+}
+
+.garden-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.garden-title {
+  font-size: 2rem;
+  color: #4b8b3b;
+  margin-bottom: 20px;
+}
+
 .garden-grid {
   display: grid;
-  grid-template-columns: repeat(3, 100px);
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  justify-items: center;
+}
+
+.flowerpot {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.flowerpot:hover {
+  transform: translateY(-5px);
+}
+
+.pot {
+  width: 100px;
+  height: 50px;
+  background-color: #a0522d;
+  border-radius: 50% 50% 0 0;
+  margin-top: 10px;
+}
+
+.plant {
+  position: relative;
+  margin-top: 20px;
+  height: 100px;
+}
+
+.stem {
+  width: 5px;
+  height: 60px;
+  background-color: green;
+  margin: 0 auto;
+  border-radius: 2px;
+  animation: grow 1s ease-out;
+}
+
+.flower {
+  width: 40px;
+  height: 40px;
+  background-color: #ff7eb9;
+  border-radius: 50%;
+  margin: 0 auto;
+  box-shadow: 0 0 10px #ff9ecb;
+}
+
+.action-btn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #6dc2af;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: #56a79a;
+}
+
+@keyframes grow {
+  from {
+    height: 0;
+  }
+  to {
+    height: 60px;
+  }
+}
+
+.bloom {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  animation: fadeIn 1s ease-in;
+}
+
+.petal {
+  position: absolute;
+  width: 20px;
+  height: 30px;
+  background-color: #ff69b4;
+  border-radius: 50%;
+  transform-origin: bottom center;
+}
+
+.petal-1 { transform: rotate(0deg) translateY(-10px); }
+.petal-2 { transform: rotate(60deg) translateY(-10px); }
+.petal-3 { transform: rotate(120deg) translateY(-10px); }
+.petal-4 { transform: rotate(180deg) translateY(-10px); }
+.petal-5 { transform: rotate(240deg) translateY(-10px); }
+.petal-6 { transform: rotate(300deg) translateY(-10px); }
+
+.flower-center {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 30px;
+  height: 30px;
+  background-color: yellow;
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 5px #ccc;
+  transform: translateX(-20px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to   { opacity: 1; transform: scale(1); }
+} */
+
+
+/* Full garden background */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(to top, #a8d5a3 0%, #7bc47f 50%, #c0e9af 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Grid layout for plants */
+.garden-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 40px;
+  padding: 40px;
+  justify-items: center;
+  align-items: end;
+}
+
+/* Each flower pot */
+.flowerpot {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none; /* no card bg */
+  box-shadow: none;
+  position: relative;
+}
+
+/* Pot visual */
+.pot {
+  width: 100px;
+  height: 50px;
+  background-color: #6f4a1e;
+  border-radius: 50% 50% 0 0;
+  margin-top: 10px;
+  box-shadow: inset 0 -6px 8px #4b2e0c, 0 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+}
+
+/* Grass patch below each pot */
+.flowerpot::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  width: 100px;
+  height: 25px;
+  background:
+    radial-gradient(ellipse at center, #4caf50 30%, transparent 70%),
+    radial-gradient(ellipse at center, #3a8c30 40%, transparent 60%);
+  background-repeat: repeat-x;
+  background-size: 20px 30px;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+/* Plant area */
+.plant {
+  position: relative;
+  margin-top: 10px;
+  height: 100px;
+  display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  align-items: flex-end;
+  z-index: 2;
+}
+
+.stem {
+  width: 5px;
+  height: 60px;
+  background-color: #2e7d32;
+  border-radius: 2px;
+  animation: grow 1s ease-out;
+  box-shadow: 0 0 3px #1b5e20;
+}
+
+.bloom {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  animation: fadeIn 1s ease-in;
+  transform-origin: center bottom;
+  animation: sway 4s infinite ease-in-out;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.petal {
+  position: absolute;
+  width: 20px;
+  height: 30px;
+  background-color: #f06292;
+  border-radius: 50%;
+  transform-origin: bottom center;
+  box-shadow: 0 0 12px #f8bbd0;
+}
+
+.petal-1 { transform: rotate(0deg) translateY(-10px); }
+.petal-2 { transform: rotate(60deg) translateY(-10px); }
+.petal-3 { transform: rotate(120deg) translateY(-10px); }
+.petal-4 { transform: rotate(180deg) translateY(-10px); }
+.petal-5 { transform: rotate(240deg) translateY(-10px); }
+.petal-6 { transform: rotate(300deg) translateY(-10px); }
+
+.flower-center {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 30px;
+  height: 30px;
+  background-color: #ffee58;
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 8px #fff59d, inset 0 0 5px #f9a825;
+  transform: translateX(-20px);
+}
+
+/* Button */
+.action-btn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(46, 125, 50, 0.6);
+  transition: background 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: #388e3c;
+}
+
+/* Animations */
+@keyframes grow {
+  from { height: 0; }
+  to { height: 60px; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(2deg); }
+  50% { transform: rotate(-2deg); }
 }

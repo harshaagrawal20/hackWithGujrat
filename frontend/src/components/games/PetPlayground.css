@@ -1,0 +1,117 @@
+/* PetPlayground.css */
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* background: linear-gradient(to top, #a1c4fd, #c2e9fb); */
+  overflow: hidden;
+}
+
+.playground-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  user-select: none;
+}
+
+.controls {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.controls button {
+  background: #e259c9;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 6px rgba(97, 164, 106, 0.4);
+}
+
+.controls button:hover {
+  background: #4b7d4f;
+  box-shadow: 0 6px 10px rgba(75, 125, 79, 0.6);
+}
+
+.playground {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background-color:#61a46a; 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pet {
+  position: absolute;
+  max-height: 100px;
+  max-width: 100px;
+  user-select: none;
+  opacity: 0;
+  animation: fadeIn 1.2s forwards ease-in-out;
+  filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.25));
+  will-change: transform, left, top;
+}
+
+.ball {
+  position: absolute;
+  bottom: 20px;
+  max-width: 80px;
+  max-height: 80px;
+  cursor: pointer;
+  user-select: none;
+  filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.3));
+  transition: left 1s ease;
+  animation: ballBounce 3s ease infinite;
+}
+
+/* Fade-in animation for pet images */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Subtle bounce animation for the ball */
+@keyframes ballBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-100px);
+  }
+}
+
+/* Optional scenic background style */
+.scenic-bg {
+  background: linear-gradient(135deg, #f8d7f2 0%, #fff7fa 100%);
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .controls button {
+    width: 100%;
+  }
+
+  .pet {
+    max-height: 180px;
+    max-width: 180px;
+  }
+}

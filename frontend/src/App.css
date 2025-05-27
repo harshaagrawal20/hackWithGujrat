@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
   font-family: 'Segoe UI', sans-serif;
   background: #e0f2f1;
@@ -8,4 +8,28 @@
 
 h1 {
   color: #4caf50;
+} */
+
+.games {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to top, #fac8f6, #fff0fc);
+}
+
+.games button {
+  padding: 14px 28px;
+  font-size: 18px;
+  background-color: #f063c3;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  
+}
+
+.games button:hover {
+  background-color: #db5bb3;
 }

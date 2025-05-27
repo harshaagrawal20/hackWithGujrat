@@ -1,13 +1,42 @@
 import React from "react";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Garden from "./components/games/Garden";
+import "./App.css";
+import ConnectDotsGame from "./components/games/ConnectDotsGame";
+import PetPlayground from "./components/games/PetPlayground";
 
-function App() {
+// Landing/Home Page Component
+function HomePage() {
+  const navigate = useNavigate();
+
   return (
     <div className="App">
-      <h1>🌸 Serenity Grove</h1>
-      <Garden />
+      <div className="games">
+        <button onClick={() => navigate("/garden")}>
+          Relaxing Garden
+        </button>
+        <button onClick={() => navigate("/dotgame")}>
+          Connect the dots
+        </button>
+        <button onClick={() => navigate("/pets")}>
+          Pet Playground
+        </button>
+      </div>
     </div>
+  );
+}
+
+// Main App
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/garden" element={<Garden />} />
+        <Route path="/dotgame" element={<ConnectDotsGame />} />
+        <Route path="/pets" element={<PetPlayground />} />
+      </Routes>
+    </Router>
   );
 }
 
