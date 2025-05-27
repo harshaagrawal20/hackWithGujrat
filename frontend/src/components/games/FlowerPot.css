@@ -1,0 +1,17 @@
+.flower-pot {
+  width: 100px;
+  height: 100px;
+  border: 2px solid #81c784;
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.flower-pot:hover {
+  transform: scale(1.05);
+}

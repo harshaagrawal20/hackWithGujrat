@@ -1,0 +1,7 @@
+.garden-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 20px;
+  justify-content: center;
+  margin-top: 2rem;
+}
