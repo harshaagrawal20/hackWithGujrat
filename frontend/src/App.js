@@ -4,6 +4,7 @@ import Garden from "./components/games/Garden";
 import "./App.css";
 import ConnectDotsGame from "./components/games/ConnectDotsGame";
 import PetPlayground from "./components/games/PetPlayground";
+import MoodTracker from "./components/MoodTracker/MoodTracker";
 
 // Landing/Home Page Component
 function HomePage() {
@@ -21,6 +22,9 @@ function HomePage() {
         <button onClick={() => navigate("/pets")}>
           Pet Playground
         </button>
+        <button onClick={() => navigate("/mood")}>
+          Mood Tracker
+        </button>
       </div>
     </div>
   );
@@ -35,6 +39,7 @@ function App() {
         <Route path="/garden" element={<Garden />} />
         <Route path="/dotgame" element={<ConnectDotsGame />} />
         <Route path="/pets" element={<PetPlayground />} />
+        <Route path="/mood" element={<MoodTracker />} />
       </Routes>
     </Router>
   );
