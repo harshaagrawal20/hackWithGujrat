@@ -1,0 +1,103 @@
+.journal-container {
+  max-width: 700px;
+  margin: 40px auto;
+  background-color: #fdf8f3;
+  padding: 30px;
+  border: 1px solid #e3d2c1;
+  border-radius: 12px;
+  font-family: 'Georgia', serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.journal-container h2 {
+  text-align: center;
+  color: #6c4c3b;
+  margin-bottom: 20px;
+}
+
+.journal-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+  padding: 14px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #d1bda8;
+  background-color: #fffaf7;
+  font-size: 16px;
+}
+
+.emoji-picker {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.emoji-picker span {
+  font-size: 26px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.emoji-picker span:hover {
+  transform: scale(1.2);
+}
+
+.emoji-picker .selected {
+  transform: scale(1.3);
+  background-color: #f0e4d8;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+button[type="submit"] {
+  background-color: #a67b5b;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #8b6649;
+}
+
+.journal-entries {
+  margin-top: 30px;
+}
+
+.entry-card {
+  background: #fcf9f5;
+  border-left: 5px solid #d4bfa6;
+  padding: 15px 20px;
+  margin: 12px 0;
+  border-radius: 8px;
+}
+
+.entry-card .date {
+  font-size: 14px;
+  color: #85705c;
+  margin-bottom: 6px;
+}
+
+.entry-card .mood {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: #6d4b3d;
+}
+
+.entry-card p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #40352f;
+}
