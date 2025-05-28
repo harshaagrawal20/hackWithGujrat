@@ -21,6 +21,8 @@ import MoodTracker from "./components/MoodTracker/MoodTracker";
 
 import "./App.css";
 
+// import { BackgroundScene } from "./components/background/BackgroundScene";
+import BackgroundScene from "./components/background/BackgroundScene";
 // Home Page
 function HomePage({ token, userEmail, onLogout }) {
   const navigate = useNavigate();
@@ -108,6 +110,7 @@ function App() {
 
   return (
     <Router>
+      <BackgroundScene/>
       <Routes>
         <Route
           path="/"
