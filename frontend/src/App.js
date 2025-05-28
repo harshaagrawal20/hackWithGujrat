@@ -1,48 +1,3 @@
-// import React from "react";
-// import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
-// import Garden from "./components/games/Garden";
-// import "./App.css";
-// import ConnectDotsGame from "./components/games/ConnectDotsGame";
-// import PetPlayground from "./components/games/PetPlayground";
-
-// // Landing/Home Page Component
-// function HomePage() {
-//   const navigate = useNavigate();
-
-//   return (
-//     <div className="App">
-//       <div className="games">
-//         <button onClick={() => navigate("/garden")}>
-//           Relaxing Garden
-//         </button>
-//         <button onClick={() => navigate("/dotgame")}>
-//           Connect the dots
-//         </button>
-//         <button onClick={() => navigate("/pets")}>
-//           Pet Playground
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// // Main App
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/home" element={<HomePage />} />
-//         <Route path="/garden" element={<Garden />} />
-//         <Route path="/dotgame" element={<ConnectDotsGame />} />
-//         <Route path="/pets" element={<PetPlayground />} />
-//       </Routes>
-//     </Router>
-//   );
-// }
-
-// export default App;
-
-
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -62,6 +17,7 @@ import Signup from "./components/auth/Signup";
 import Journal from "./components/journal/Journal";
 // import JournalList from "./components/journal/JournalList";
 // import JournalEntryView from "./components/journal/JournalView";
+import MoodTracker from "./components/MoodTracker/MoodTracker";
 
 import "./App.css";
 
@@ -72,7 +28,7 @@ function HomePage({ token, userEmail, onLogout }) {
   return (
     <div className="App">
       <nav className="navbar">
-        <h1>Peaceful Playground</h1>
+        <h1>Therapy AI</h1>
         <div>
           {token ? (
             <>
@@ -94,6 +50,7 @@ function HomePage({ token, userEmail, onLogout }) {
           <button onClick={() => navigate("/dotgame")}>Connect the Dots</button>
           <button onClick={() => navigate("/pets")}>Pet Playground</button>
           <button onClick={() => navigate("/journal")}>Daily Journal</button>
+          <button onClick={() => navigate("/moodtracker")}>Mood Tracker</button>
         </div>
       ) : (
         <p style={{ textAlign: "center", marginTop: "2rem" }}>
@@ -187,6 +144,10 @@ function App() {
         <Route
           path="/pets"
           element={token ? <PetPlayground /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/moodtracker"
+          element={token ? <MoodTracker /> : <Navigate to="/login" />}
         />
         <Route
           path="/journal"
