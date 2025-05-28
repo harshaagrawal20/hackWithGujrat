@@ -262,3 +262,20 @@
         min-width: unset;
     }
 }
+
+/* Mood History Graph Styles */
+.mood-history-graph {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid rgba(240, 99, 195, 0.1);
+    width: 100%;
+}
+
+.mood-history-graph h2 {
+    color: #f063c3;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* You might want to add specific styles for the chart elements if needed, 
+e.g., tooltip styles, legend styles, axis label colors, etc. */

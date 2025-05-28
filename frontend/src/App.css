@@ -10,6 +10,80 @@ h1 {
   color: #4caf50;
 } */
 
+.App {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the app takes at least the full viewport height */
+    background-color: var(--background-color); /* Use the background color variable */
+}
+
+.navbar {
+    background-color: var(--card-bg); /* Use card background for navbar */
+    padding: 15px 30px; /* Adjust padding */
+    box-shadow: var(--shadow); /* Add shadow */
+    display: flex;
+    justify-content: space-between; /* Space out title and links */
+    align-items: center;
+}
+
+.app-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px; /* Space between links */
+}
+
+.navbar .nav-links li {
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.navbar .nav-links li:hover {
+    color: var(--primary-color); /* Highlight color on hover */
+}
+
+.navbar .nav-links li.active {
+    color: var(--primary-color); /* Highlight color for active link */
+    font-weight: bold;
+}
+
+.navbar .dropdown-menu {
+    position: absolute;
+    top: 100%; /* Position below the list item */
+    left: 0;
+    background-color: var(--card-bg);
+    box-shadow: var(--shadow);
+    border-radius: var(--border-radius);
+    padding: 10px 0;
+    list-style: none;
+    z-index: 1000;
+    min-width: 150px;
+}
+
+.navbar .dropdown-menu li {
+    padding: 8px 15px;
+    font-size: 1rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.navbar .dropdown-menu li:hover {
+    background-color: var(--hover-color);
+}
+
+h1 {
+  color: #4caf50; /* Keep original h1 style if needed elsewhere, or remove */
+}
+
 .games {
   min-height: 100vh;
   display: grid;
@@ -49,4 +123,600 @@ h1 {
   .games button {
     height: 100px;
   }
+}
+
+:root {
+  --primary-color: #6C63FF;
+  --secondary-color: #4CAF50;
+  --background-color: #F5F7FA;
+  --card-bg: #FFFFFF;
+  --text-color: #333333;
+  --text-light: #666666;
+  --border-radius: 12px;
+  --hover-color: #F0F0F0;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background: var(--card-bg);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+}
+
+.nav-links {
+  list-style: none;
+}
+
+.nav-links li {
+  padding: 12px 15px;
+  margin: 5px 0;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-links li:hover {
+  background-color: var(--hover-color);
+}
+
+.nav-links li.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.nav-links li i {
+  margin-right: 10px;
+}
+
+/* Games Submenu Styles */
+.games-submenu {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 20px;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.games-submenu li {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: var(--text-color);
+}
+
+.games-submenu li:hover {
+  background-color: var(--hover-color);
+  color: var(--primary-color);
+}
+
+/* Main Content Styles */
+.main-content {
+  flex: 1; /* Allow main content to grow and fill remaining space */
+  padding: 30px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  /* Remove min-height if it's causing issues */
+}
+
+/* Profile Section */
+.profile-section {
+  margin-bottom: 30px;
+}
+
+.profile-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-info h2 {
+  margin-bottom: 5px;
+}
+
+.mood {
+  color: var(--text-light);
+  margin-bottom: 15px;
+}
+
+.quick-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.dashboard-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.dashboard-card h3 {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Journal Section */
+.journal-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.date-picker {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+}
+
+textarea {
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  resize: none;
+}
+
+/* Mood Tracker */
+.mood-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 150px;
+  margin-bottom: 15px;
+}
+
+.mood-bar {
+  flex: 1;
+  background: var(--primary-color);
+  border-radius: 4px 4px 0 0;
+  transition: height 0.3s ease;
+}
+
+/* Chatbot Section */
+.chat-container {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background: var(--hover-color);
+  border-radius: var(--border-radius);
+  margin-bottom: 10px;
+}
+
+.message {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: var(--border-radius);
+  max-width: 80%;
+}
+
+.message.bot {
+  background: var(--primary-color);
+  color: white;
+  align-self: flex-start;
+}
+
+.chat-input {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+}
+
+/* Games Section */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 15px;
+}
+
+.game-card {
+  background: var(--hover-color);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+}
+
+.game-card i {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+/* Tasks Section */
+.tasks-list {
+  margin-bottom: 15px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* Button Styles */
+.btn-primary, .btn-secondary, .btn-send {
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-secondary {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.btn-send {
+  background: var(--primary-color);
+  color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background: var(--card-bg);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-links li {
+    flex: 1;
+    text-align: center;
+    padding: 10px 5px;
+    margin: 0;
+    font-size: 0.8rem;
+  }
+
+  .nav-links li i {
+    display: block;
+    margin: 0 auto 5px;
+    font-size: 1.2rem;
+  }
+
+  .games-submenu {
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    background: var(--card-bg);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px 12px 0 0;
+    padding: 10px;
+  }
+
+  .games-submenu li {
+    padding: 15px;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .main-content {
+    padding: 15px;
+    margin-bottom: 60px;
+  }
+
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .quick-stats {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .games-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .game-card {
+    padding: 10px;
+  }
+
+  .game-card i {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+
+  .chat-container {
+    height: 250px;
+  }
+
+  .message {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 10px;
+  }
+
+  .profile-card {
+    padding: 10px;
+  }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .stat-value {
+    font-size: 1.2rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .dashboard-card {
+    padding: 15px;
+  }
+
+  .dashboard-card h3 {
+    font-size: 1rem;
+  }
+
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .nav-links li {
+    font-size: 0.7rem;
+  }
+
+  .nav-links li i {
+    font-size: 1rem;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+
+  .chat-input input {
+    padding: 8px;
+  }
+
+  .btn-send {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Add smooth transitions for mobile menu */
+.games-submenu {
+  transition: transform 0.3s ease-in-out;
+  transform-origin: bottom;
+}
+
+.games-submenu.hidden {
+  transform: translateY(100%);
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+  .nav-links li,
+  .games-submenu li,
+  .game-card,
+  .task-item,
+  .btn-primary,
+  .btn-secondary {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Add safe area insets for modern mobile browsers */
+@supports (padding: max(0px)) {
+  .sidebar {
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Task Details Overlay and Card Styles */
+.task-details-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.task-details-card {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+}
+
+.task-details-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.task-details-card p {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 30px;
+}
+
+.task-details-card button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--secondary-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.task-details-card button:hover {
+    background-color: var(--secondary-color);
+    filter: brightness(0.9);
+}
+
+@media (max-width: 768px) {
+    .task-details-card {
+        padding: 20px;
+    }
+
+    .task-details-card h2 {
+        font-size: 1.3rem;
+    }
+
+    .task-details-card p {
+        font-size: 1rem;
+    }
 }
