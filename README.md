@@ -1,8 +1,8 @@
-# 🌿 TheraMuse - AI Therapy Assistant and Mood Journal
+# 🌿 MindSpace - AI Therapy Assistant and Mood Journal
 
-![TheraMuse Banner](https://images.pexels.com/photos/3759655/pexels-photo-3759655.jpeg)
+![MindSpace Banner](https://images.pexels.com/photos/3759655/pexels-photo-3759655.jpeg)
 
-**TheraMuse** is a calming, intelligent, and supportive AI-powered therapy companion. It integrates journaling, mood tracking (with optional face-based detection), daily tasks, soothing mini-games, and a responsive AI chatbot provided context on real-world therapeutic datasets.
+**MindSpace** is a calming, intelligent, and supportive AI-powered therapy companion. It integrates journaling, mood tracking (with optional face-based detection), daily tasks, soothing mini-games, and a responsive AI chatbot provided context on real-world therapeutic datasets.
 
 ---
 
