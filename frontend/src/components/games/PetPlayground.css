@@ -1,5 +1,3 @@
-/* PetPlayground.css */
-
 body, html {
   margin: 0;
   padding: 0;
@@ -114,4 +112,36 @@ body, html {
     max-height: 180px;
     max-width: 180px;
   }
+}
+
+
+/* Full page canvas */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.garden-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.controls {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.controls button {
+  margin: 5px;
+  padding: 8px 12px;
+  font-weight: bold;
+  cursor: pointer;
 }
