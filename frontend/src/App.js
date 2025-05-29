@@ -1,165 +1,26 @@
-// import React, { useState, useEffect } from "react";
-// import {
-//   BrowserRouter as Router,
-//   Routes,
-//   Route,
-//   Navigate,
-//   useNavigate,
-//   useLocation,
-// } from "react-router-dom";
-// import { jwtDecode } from "jwt-decode";
+import React, { useState, useRef, useEffect } from 'react';
+import { Line } from 'react-chartjs-2';
+import { 
+  Chart as ChartJS, 
+  CategoryScale, 
+  LinearScale, 
+  PointElement, 
+  LineElement, 
+  Title, 
+  Tooltip, 
+  Legend, 
+  BarElement 
+} from 'chart.js';
 
-// import Garden from "./components/games/Garden";
-// import ConnectDotsGame from "./components/games/ConnectDotsGame";
-// import PetPlayground from "./components/games/PetPlayground";
-// import Login from "./components/auth/Login";
-// import Signup from "./components/auth/Signup";
-// import Journal from "./components/journal/Journal";
-// import MoodTracker from "./components/MoodTracker/MoodTracker";
-// import BackgroundScene from "./components/background/BackgroundScene";
+import './App.css';
+import MoodTracker from './components/MoodTracker/MoodTracker';
+import Garden from './components/games/Garden';
+import ConnectDotsGame from './components/games/ConnectDotsGame';
+import PetPlayground from './components/games/PetPlayground';
+import DailyTasks from './components/tasks/DailyTasks';
 
-// import "./App.css";
-
-// // Home Page Component
-// function HomePage({ token, userEmail, onLogout }) {
-//   const navigate = useNavigate();
-
-//   return (
-//     <div className="App">
-//       <nav className="navbar">
-//         <h1>Therapy AI</h1>
-//         <div>
-//           {token ? (
-//             <>
-//               <span style={{ marginRight: "10px" }}>{userEmail}</span>
-//               <button onClick={onLogout}>Logout</button>
-//             </>
-//           ) : (
-//             <>
-//               <button onClick={() => navigate("/login")}>Login</button>
-//               <button onClick={() => navigate("/signup")}>Signup</button>
-//             </>
-//           )}
-//         </div>
-//       </nav>
-
-//       {token ? (
-//         <div className="games">
-//           <button onClick={() => navigate("/garden")}>Relaxing Garden</button>
-//           <button onClick={() => navigate("/dotgame")}>Connect the Dots</button>
-//           <button onClick={() => navigate("/pets")}>Pet Playground</button>
-//           <button onClick={() => navigate("/journal")}>Daily Journal</button>
-//           <button onClick={() => navigate("/moodtracker")}>Mood Tracker</button>
-//         </div>
-//       ) : (
-//         <p style={{ textAlign: "center", marginTop: "2rem" }}>
-//           Please login to access the games and journal.
-//         </p>
-//       )}
-//     </div>
-//   );
-// }
-
-// // Redirect logic after login/signup
-// function RedirectAfterLogin({ onLogin }) {
-//   const navigate = useNavigate();
-//   const location = useLocation();
-
-//   useEffect(() => {
-//     const token = localStorage.getItem("token");
-//     if (token) {
-//       onLogin(token);
-//       navigate("/", { replace: true });
-//     }
-//   }, []);
-
-//   return null;
-// }
-
-// // Main App Component
-// function App() {
-//   const [token, setToken] = useState(localStorage.getItem("token"));
-//   const [userEmail, setUserEmail] = useState("");
-
-//   useEffect(() => {
-//     if (token) {
-//       try {
-//         const decoded = jwtDecode(token);
-//         setUserEmail(decoded.email);
-//       } catch {
-//         setUserEmail("");
-//         setToken(null);
-//       }
-//     } else {
-//       setUserEmail("");
-//     }
-//   }, [token]);
-
-//   const handleLogin = (newToken) => {
-//     localStorage.setItem("token", newToken);
-//     setToken(newToken);
-//   };
-
-//   const handleLogout = () => {
-//     localStorage.removeItem("token");
-//     setToken(null);
-//     setUserEmail("");
-//   };
-
-//   const requireAuth = (element) =>
-//     token ? element : <Navigate to="/login" replace />;
-
-//   return (
-//     <Router>
-//       <BackgroundScene />
-//       <Routes>
-//         <Route path="/" element={<HomePage token={token} userEmail={userEmail} onLogout={handleLogout} />} />
-//         <Route path="/login" element={<Login onLogin={handleLogin} />} />
-//         <Route path="/signup" element={<Signup onLogin={handleLogin} />} />
-//         <Route path="/redirect" element={<RedirectAfterLogin onLogin={handleLogin} />} />
-
-//         {/* Protected Routes */}
-//         <Route path="/journal" element={requireAuth(<Journal />)} />
-//         <Route path="/moodtracker" element={requireAuth(<MoodTracker />)} />
-//         <Route path="/garden" element={requireAuth(<Garden />)} />
-//         <Route path="/dotgame" element={requireAuth(<ConnectDotsGame />)} />
-//         <Route path="/pets" element={requireAuth(<PetPlayground />)} />
-
-//         {/* Catch-all to redirect */}
-//         <Route path="*" element={<Navigate to="/" replace />} />
-//       </Routes>
-//     </Router>
-//   );
-// }
-
-// export default App;
-
-
-
-import React, { useState, useEffect, useRef } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
-
-import Login from "./components/auth/Login";
-import Signup from "./components/auth/Signup";
-import Journal from "./components/journal/Journal";
-import MoodTracker from "./components/MoodTracker/MoodTracker";
-import Garden from "./components/games/Garden";
-import ConnectDotsGame from "./components/games/ConnectDotsGame";
-import PetPlayground from "./components/games/PetPlayground";
-import DailyTasks from "./components/tasks/DailyTasks";
-import BackgroundScene from "./components/background/BackgroundScene";
-
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
+// Register Chart.js components
+ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
@@ -167,25 +28,25 @@ import {
   Title,
   Tooltip,
   Legend,
-  BarElement,
-} from "chart.js";
-
-import "./App.css";
-
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    BarElement
+  BarElement
 );
 
-// Dashboard Home Page
-function Dashboard({ onLogout, userEmail, token }) {
-  const [currentPage, setCurrentPage] = useState("dashboard");
+// Pool of potential daily tasks (10-Day Mental Health Task Challenge)
+const potentialDailyTasks = [
+  "Day 1: Gratitude Letter - Write a letter (or short note) to someone you're thankful for.",
+  "Day 2: Nature Time - Spend 20 minutes outdoors. Focus on your senses.",
+  "Day 3: Declutter One Spot - Tidy up a small area like your desk or bag.",
+  "Day 4: Music Therapy - Make a playlist of relaxing or uplifting songs.",
+  "Day 5: Random Act of Kindness - Do one kind thing for someone.",
+  "Day 6: Vision Board or Mood Board - Create a collage of your goals or feelings.",
+  "Day 7: Screen-Free Hour - Pick one hour to go totally screen-free.",
+  "Day 8: Try Something New - Do one thing you've never done before.",
+  "Day 9: Self-Compassion Letter - Write a kind and encouraging letter to yourself.",
+  "Day 10: Create a Calm Corner - Set up a personal safe space with calming items.",
+];
+
+function App() {
+  const [currentPage, setCurrentPage] = useState('dashboard');
   const [showGamesMenu, setShowGamesMenu] = useState(false);
   const [moodStats, setMoodStats] = useState({});
   const chartIntervalRef = useRef(null);
@@ -198,24 +59,39 @@ function Dashboard({ onLogout, userEmail, token }) {
     setShowGamesMenu(false);
   };
 
+  const toggleGamesMenu = () => {
+    setShowGamesMenu(!showGamesMenu);
+  };
+
   const fetchMoodStats = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/mood_stats");
+      const response = await fetch('http://127.0.0.1:5000/mood_graph_data');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setMoodStats(data);
+      
+      // Process the data to get emotion counts
+      const emotionCounts = {};
+      const emotions = Object.keys(data).filter(key => key !== 'timestamps');
+      emotions.forEach(emotion => {
+        emotionCounts[emotion] = data[emotion].reduce((sum, count) => sum + count, 0);
+      });
+      
+      setMoodStats(emotionCounts);
     } catch (err) {
       console.error("Error fetching mood stats:", err);
+      // Set default empty stats to prevent chart errors
+      setMoodStats({});
     }
   };
 
   useEffect(() => {
-    if (currentPage === "dashboard") {
+    if (currentPage === 'dashboard') {
       fetchMoodStats();
       chartIntervalRef.current = setInterval(fetchMoodStats, 10000);
     }
+
     return () => {
       if (chartIntervalRef.current) {
         clearInterval(chartIntervalRef.current);
@@ -225,33 +101,31 @@ function Dashboard({ onLogout, userEmail, token }) {
 
   const renderContent = () => {
     switch (currentPage) {
-      case "mood":
+      case 'mood':
         return <MoodTracker />;
-      case "garden":
+      case 'garden':
         return <Garden />;
-      case "dotgame":
+      case 'dotgame':
         return <ConnectDotsGame />;
-      case "pets":
+      case 'pets':
         return <PetPlayground />;
-      case "tasks":
-        return <DailyTasks />;
-      case "journal":
-        return <Journal token={token} />;
+      case 'tasks':
+        return (
+          <section className="dashboard-card tasks-section">
+            <h3><i className="fas fa-tasks"></i> Daily Tasks</h3>
+            <DailyTasks />
+          </section>
+        );
       default:
         return (
           <>
+            {/* Profile Section */}
             <section className="profile-section">
               <div className="profile-card">
-                <img
-                  src="https://via.placeholder.com/80"
-                  alt="Profile"
-                  className="avatar"
-                />
+                <img src="https://via.placeholder.com/80" alt="Profile" className="avatar" />
                 <div className="profile-info">
-                  <h2>{userEmail}</h2>
-                  <p className="mood">
-                    Current Mood: <span className="mood-emoji">😊</span> Happy
-                  </p>
+                  <h2>Sarah Johnson</h2>
+                  <p className="mood">Current Mood: <span className="mood-emoji">😊</span> Happy</p>
                   <div className="quick-stats">
                     <div className="stat">
                       <span className="stat-value">7</span>
@@ -266,24 +140,33 @@ function Dashboard({ onLogout, userEmail, token }) {
               </div>
             </section>
 
+            {/* Dashboard Grid */}
             <div className="dashboard-grid">
+              {/* Journal Section */}
+              <section className="dashboard-card journal-section">
+                <h3><i className="fas fa-book"></i> Daily Journal</h3>
+                <div className="journal-input">
+                  <input type="date" className="date-picker" />
+                  <textarea placeholder="How are you feeling today?"></textarea>
+                  <button className="btn-primary">Save Entry</button>
+                </div>
+              </section>
 
+              {/* Mood Tracker Graph (Real-time) */}
               <section className="dashboard-card mood-tracker">
-                <h3>
-                  <i className="fas fa-chart-line"></i> Mood Trend (Last 24 hrs)
-                </h3>
-                <div style={{ width: "100%", height: "250px" }}>
+                <h3><i className="fas fa-chart-line"></i> Mood Trend (Last 24 hrs)</h3>
+                <div style={{ width: '100%', height: '250px' }}>
                   {Object.keys(moodStats).length > 0 ? (
                     <Line
                       data={{
                         labels: Object.keys(moodStats),
                         datasets: [
                           {
-                            label: "Emotion Count",
+                            label: 'Emotion Count',
                             data: Object.values(moodStats),
-                            backgroundColor: "rgba(108, 99, 255, 0.6)",
-                            borderColor: "rgba(108, 99, 255, 1)",
-                            borderWidth: 1,
+                            backgroundColor: 'rgba(108, 99, 255, 0.6)',
+                            borderColor: 'rgba(108, 99, 255, 1)',
+                            borderWidth: 2,
                             fill: false,
                             tension: 0.1,
                           },
@@ -293,55 +176,93 @@ function Dashboard({ onLogout, userEmail, token }) {
                         responsive: true,
                         maintainAspectRatio: false,
                         plugins: {
-                          legend: { position: "top" },
-                          title: { display: false },
+                          legend: {
+                            position: 'top',
+                          },
+                          title: {
+                            display: false,
+                          },
                         },
                         scales: {
                           y: {
                             beginAtZero: true,
-                            title: { display: true, text: "Number of Entries" },
-                            ticks: { allowDecimals: false },
+                            title: {
+                              display: true,
+                              text: 'Number of Entries',
+                            },
+                            ticks: { 
+                              stepSize: 1,
+                              callback: function(value) {
+                                return Number.isInteger(value) ? value : '';
+                              }
+                            }
                           },
                           x: {
-                            title: { display: true, text: "Emotion" },
-                          },
+                            title: {
+                              display: true,
+                              text: 'Emotion',
+                            },
+                          }
                         },
                       }}
                     />
                   ) : (
-                    <p>No mood data available for the last 24 hours.</p>
+                    <div style={{ 
+                      display: 'flex', 
+                      justifyContent: 'center', 
+                      alignItems: 'center', 
+                      height: '100%',
+                      color: '#666'
+                    }}>
+                      <p>No mood data available for the last 24 hours.</p>
+                    </div>
                   )}
                 </div>
-                <button className="btn-primary" onClick={() => setCurrentPage("mood")}>
+                <button className="btn-primary" onClick={() => setCurrentPage('mood')}>
                   View Full Tracker
                 </button>
               </section>
 
+              {/* Chatbot Interface */}
+              <section className="dashboard-card chatbot-section">
+                <h3><i className="fas fa-robot"></i> Chat with Mindy</h3>
+                <div className="chat-container">
+                  <div className="chat-messages">
+                    <div className="message bot">
+                      Hello! How can I help you today?
+                    </div>
+                  </div>
+                  <div className="chat-input">
+                    <input type="text" placeholder="Type your message" />
+                    <button className="btn-send">
+                      <i className="fas fa-paper-plane"></i>
+                    </button>
+                  </div>
+                </div>
+              </section>
 
+              {/* Games Section */}
               <section className="dashboard-card games-section">
-                <h3>
-                  <i className="fas fa-gamepad"></i> Mental Health Games
-                </h3>
+                <h3><i className="fas fa-gamepad"></i> Mental Health Games</h3>
                 <div className="games-grid">
-                  <div className="game-card" onClick={() => setCurrentPage("garden")}>
+                  <div className="game-card" onClick={() => setCurrentPage('garden')}>
                     <i className="fas fa-seedling"></i>
                     <span>Relaxing Garden</span>
                   </div>
-                  <div className="game-card" onClick={() => setCurrentPage("dotgame")}>
+                  <div className="game-card" onClick={() => setCurrentPage('dotgame')}>
                     <i className="fas fa-puzzle-piece"></i>
                     <span>Connect the Dots</span>
                   </div>
-                  <div className="game-card" onClick={() => setCurrentPage("pets")}>
+                  <div className="game-card" onClick={() => setCurrentPage('pets')}>
                     <i className="fas fa-paw"></i>
                     <span>Pet Playground</span>
                   </div>
                 </div>
               </section>
 
+              {/* Daily Tasks */}
               <section className="dashboard-card tasks-section">
-                <h3>
-                  <i className="fas fa-tasks"></i> Daily Tasks
-                </h3>
+                <h3><i className="fas fa-tasks"></i> Daily Tasks</h3>
                 <DailyTasks />
               </section>
             </div>
@@ -352,115 +273,55 @@ function Dashboard({ onLogout, userEmail, token }) {
 
   return (
     <div className="dashboard">
-      <BackgroundScene />
+      {/* Sidebar Navigation */}
       <nav className="sidebar">
         <div className="logo">
           <i className="fas fa-brain"></i>
           <span>MindSpace</span>
         </div>
         <ul className="nav-links">
-          <li
-            className={currentPage === "dashboard" ? "active" : ""}
-            onClick={() => navigateTo("dashboard")}
+          <li 
+            className={currentPage === 'dashboard' ? 'active' : ''} 
+            onClick={() => navigateTo('dashboard')}
           >
             <i className="fas fa-home"></i> Dashboard
           </li>
-          <li
-            className={currentPage === "mood" ? "active" : ""}
-            onClick={() => navigateTo("mood")}
+          <li><i className="fas fa-book"></i> Journal</li>
+          <li 
+            className={currentPage === 'mood' ? 'active' : ''} 
+            onClick={() => navigateTo('mood')}
           >
             <i className="fas fa-chart-line"></i> Mood Tracker
           </li>
-          <li
-            className={currentPage === "journal" ? "active" : ""}
-            onClick={() => navigateTo("journal")}
+          <li 
+            className={currentPage === 'garden' || currentPage === 'dotgame' || currentPage === 'pets' ? 'active' : ''} 
+            onClick={toggleGamesMenu}
           >
-            <i className="fas fa-book"></i> Journal
+            <i className="fas fa-gamepad"></i> Games
+            {showGamesMenu && (
+              <ul className="games-submenu">
+                <li onClick={() => navigateTo('garden')}>Relaxing Garden</li>
+                <li onClick={() => navigateTo('dotgame')}>Connect the Dots</li>
+                <li onClick={() => navigateTo('pets')}>Pet Playground</li>
+              </ul>
+            )}
           </li>
-          <li
-            className="games-menu"
-            onClick={() => setShowGamesMenu(!showGamesMenu)}
+          <li 
+            className={currentPage === 'tasks' ? 'active' : ''}
+            onClick={() => navigateTo('tasks')}
           >
-            <i className="fas fa-gamepad"></i> Games{" "}
-            <i className={`fas fa-chevron-${showGamesMenu ? "down" : "right"}`}></i>
+            <i className="fas fa-tasks"></i> Tasks
           </li>
-          {showGamesMenu && (
-            <>
-              <li
-                className={currentPage === "garden" ? "active" : ""}
-                onClick={() => navigateTo("garden")}
-              >
-                <i className="fas fa-seedling"></i> Relaxing Garden
-              </li>
-              <li
-                className={currentPage === "dotgame" ? "active" : ""}
-                onClick={() => navigateTo("dotgame")}
-              >
-                <i className="fas fa-puzzle-piece"></i> Connect the Dots
-              </li>
-              <li
-                className={currentPage === "pets" ? "active" : ""}
-                onClick={() => navigateTo("pets")}
-              >
-                <i className="fas fa-paw"></i> Pet Playground
-              </li>
-            </>
-          )}
-          <li
-            className={currentPage === "tasks" ? "active" : ""}
-            onClick={() => navigateTo("tasks")}
-          >
-            <i className="fas fa-tasks"></i> Daily Tasks
-          </li>
-          <li onClick={onLogout}>
-            <i className="fas fa-sign-out-alt"></i> Logout
-          </li>
+          <li><i className="fas fa-robot"></i> Chat</li>
         </ul>
       </nav>
-      <main className="content">{renderContent()}</main>
+
+      {/* Main Content */}
+      <main className="main-content">
+        {renderContent()}
+      </main>
     </div>
   );
-}
-
-function App() {
-  const [token, setToken] = useState(null);
-  const [userEmail, setUserEmail] = useState("");
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setToken(storedToken);
-      const decoded = jwtDecode(storedToken);
-      setUserEmail(decoded.email);
-    }
-  }, []);
-
-  const handleLogin = (jwtToken) => {
-    localStorage.setItem("token", jwtToken);
-    setToken(jwtToken);
-    const decoded = jwtDecode(jwtToken);
-    setUserEmail(decoded.email);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-    setUserEmail("");
-  };
-
-  if (!token) {
-    return (
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        </Routes>
-      </Router>
-    );
-  }
-
-  return <Dashboard onLogout={handleLogout} userEmail={userEmail} token={token} />;
 }
 
 export default App;
