@@ -135,57 +135,61 @@ function App() {
               {/* Mood Tracker Graph (Real-time) */}
               <section className="dashboard-card mood-tracker">
                 <h3><i className="fas fa-chart-line"></i> Mood Trend (Last 24 hrs)</h3>
-                 <div style={{ width: '100%', height: '250px' }}>
-                    {Object.keys(moodStats).length > 0 ? (
-                        <Line
-                            data={{
-                                labels: Object.keys(moodStats),
-                                datasets: [
-                                    {
-                                        label: 'Emotion Count',
-                                        data: Object.values(moodStats),
-                                        backgroundColor: 'rgba(108, 99, 255, 0.6)',
-                                        borderColor: 'rgba(108, 99, 255, 1)',
-                                        borderWidth: 1,
-                                        fill: false,
-                                        tension: 0.1,
-                                    },
-                                ],
-                            }}
-                            options={{
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    legend: {
-                                        position: 'top',
-                                    },
-                                    title: {
-                                        display: false,
-                                    },
-                                },
-                                scales: {
-                                    y: {
-                                        beginAtZero: true,
-                                        title: {
-                                            display: true,
-                                            text: 'Number of Entries',
-                                        },
-                                        ticks: { allowDecimals: false }
-                                    },
-                                    x:{
-                                        title: {
-                                            display: true,
-                                            text: 'Emotion',
-                                        },
-                                    }
-                                },
-                            }}
-                        />
-                    ) : (
-                        <p>No mood data available for the last 24 hours.</p>
-                    )}
+                <div style={{ width: '100%', height: '250px', position: 'relative' }}>
+                  {Object.keys(moodStats).length > 0 ? (
+                    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+                      <Line
+                        data={{
+                          labels: Object.keys(moodStats),
+                          datasets: [
+                            {
+                              label: 'Emotion Count',
+                              data: Object.values(moodStats),
+                              backgroundColor: 'rgba(108, 99, 255, 0.6)',
+                              borderColor: 'rgba(108, 99, 255, 1)',
+                              borderWidth: 1,
+                              fill: false,
+                              tension: 0.1,
+                            },
+                          ],
+                        }}
+                        options={{
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                            legend: {
+                              position: 'top',
+                            },
+                            title: {
+                              display: false,
+                            },
+                          },
+                          scales: {
+                            y: {
+                              beginAtZero: true,
+                              title: {
+                                display: true,
+                                text: 'Number of Entries',
+                              },
+                              ticks: { allowDecimals: false }
+                            },
+                            x: {
+                              title: {
+                                display: true,
+                                text: 'Emotion',
+                              },
+                            }
+                          },
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                      <p>No mood data available for the last 24 hours.</p>
+                    </div>
+                  )}
                 </div>
-                 <button className="btn-primary" onClick={() => setCurrentPage('mood')}>View Full Tracker</button>
+                <button className="btn-primary" onClick={() => setCurrentPage('mood')}>View Full Tracker</button>
               </section>
 
               {/* Chatbot Interface */}
