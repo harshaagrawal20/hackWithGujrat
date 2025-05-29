@@ -1,19 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement } from 'chart.js';
 import './MoodTracker.css';
-
-// Register Chart.js components
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    BarElement
-);
 
 const MoodTracker = () => {
     const [emotion, setEmotion] = useState(null);
@@ -25,14 +11,15 @@ const MoodTracker = () => {
     const [moodHistory, setMoodHistory] = useState([]);
     const [moodStats, setMoodStats] = useState({});
     const intervalRef = useRef(null);
-    const chartIntervalRef = useRef(null);    const fetchMoodStats = async () => {
+    const chartIntervalRef = useRef(null);
+
+    const fetchMoodStats = async () => {
         try {
             const response = await fetch('http://127.0.0.1:5000/mood_graph_data');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            // Convert the time-series data into emotion counts
             const emotionCounts = {};
             const emotions = Object.keys(data).filter(key => key !== 'timestamps');
             emotions.forEach(emotion => {
@@ -47,7 +34,6 @@ const MoodTracker = () => {
     useEffect(() => {
         fetchMoodStats();
         chartIntervalRef.current = setInterval(fetchMoodStats, 10000);
-
         return () => {
             clearInterval(chartIntervalRef.current);
         };
@@ -109,9 +95,7 @@ const MoodTracker = () => {
                         }
                         return prev;
                     });
-
                     fetchMoodStats();
-
                 } else {
                     setError(data.error || 'Failed to detect emotion');
                 }
@@ -138,46 +122,22 @@ const MoodTracker = () => {
         };
     }, []);
 
-    const chartData = {
-        labels: Object.keys(moodStats),
-        datasets: [
-            {
-                label: 'Emotion Count (Last 24 hrs)',
-                data: Object.values(moodStats),
-                backgroundColor: 'rgba(240, 99, 195, 0.6)',
-                borderColor: 'rgba(240, 99, 195, 1)',
-                borderWidth: 1,
-            },
-        ],
-    };
-
-    const chartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Mood Distribution (Last 24 hrs)',
-            },
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: {
-                    display: true,
-                    text: 'Number of Entries',
-                },
-            },
-            x:{
-                title: {
-                    display: true,
-                    text: 'Emotion',
-                },
-            }
-        },
+    const renderMoodChart = () => {
+        const maxValue = Math.max(...Object.values(moodStats));
+        return (
+            <div className="mood-chart">
+                {Object.entries(moodStats).map(([emotion, count]) => (
+                    <div key={emotion} className="chart-bar-container">
+                        <div className="chart-bar" style={{
+                            height: `${(count / maxValue) * 100}%`,
+                            backgroundColor: 'rgba(240, 99, 195, 0.6)'
+                        }} />
+                        <div className="chart-label">{emotion}</div>
+                        <div className="chart-value">{count}</div>
+                    </div>
+                ))}
+            </div>
+        );
     };
 
     return (
@@ -233,11 +193,13 @@ const MoodTracker = () => {
 
                     <div className="mood-history-chart">
                         <h2>Mood Distribution (Last 24 hrs)</h2>
-                        <div style={{ width: '100%', height: '300px' }}>
+                        <div style={{ width: '100%', height: '300px', position: 'relative' }}>
                             {Object.keys(moodStats).length > 0 ? (
-                                <Line data={chartData} options={chartOptions} />
+                                renderMoodChart()
                             ) : (
-                                <p>No mood data available for the last 24 hours.</p>
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                                    <p>No mood data available for the last 24 hours.</p>
+                                </div>
                             )}
                         </div>
                     </div>

@@ -173,14 +173,14 @@ import {
 import "./App.css";
 
 ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement
 );
 
 // Dashboard Home Page
@@ -189,6 +189,9 @@ function Dashboard({ onLogout, userEmail, token }) {
   const [showGamesMenu, setShowGamesMenu] = useState(false);
   const [moodStats, setMoodStats] = useState({});
   const chartIntervalRef = useRef(null);
+  const [dailyTasks, setDailyTasks] = useState([]);
+  const [taskDate, setTaskDate] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null);
 
   const navigateTo = (page) => {
     setCurrentPage(page);
