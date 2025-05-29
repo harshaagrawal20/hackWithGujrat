@@ -75,7 +75,7 @@
 | Chatbot API            | Node.js + Gemini         |
 | Vector DB              | Qdrant                   |
 | Embeddings             | BGE-M3                   |
-| Mood Detection         | OpenCV + Face Landmark   |
+| Mood Detection         | OpenCV   |
 | CSV Knowledge Chunks   | Python Chunker Script    |
 
 ---
