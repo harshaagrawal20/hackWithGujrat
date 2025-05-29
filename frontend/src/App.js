@@ -31,28 +31,23 @@ ChartJS.register(
   BarElement
 );
 
-// Pool of potential daily tasks (10-Day Mental Health Task Challenge)
-const potentialDailyTasks = [
-  "Day 1: Gratitude Letter - Write a letter (or short note) to someone you're thankful for.",
-  "Day 2: Nature Time - Spend 20 minutes outdoors. Focus on your senses.",
-  "Day 3: Declutter One Spot - Tidy up a small area like your desk or bag.",
-  "Day 4: Music Therapy - Make a playlist of relaxing or uplifting songs.",
-  "Day 5: Random Act of Kindness - Do one kind thing for someone.",
-  "Day 6: Vision Board or Mood Board - Create a collage of your goals or feelings.",
-  "Day 7: Screen-Free Hour - Pick one hour to go totally screen-free.",
-  "Day 8: Try Something New - Do one thing you've never done before.",
-  "Day 9: Self-Compassion Letter - Write a kind and encouraging letter to yourself.",
-  "Day 10: Create a Calm Corner - Set up a personal safe space with calming items.",
-];
-
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [showGamesMenu, setShowGamesMenu] = useState(false);
   const [moodStats, setMoodStats] = useState({});
   const chartIntervalRef = useRef(null);
-  const [dailyTasks, setDailyTasks] = useState([]);
-  const [taskDate, setTaskDate] = useState(null);
-  const [selectedTask, setSelectedTask] = useState(null);
+
+  // User profile with Indian name
+  const [userProfile, setUserProfile] = useState({
+    name: "Chinmayee",
+    currentMood: "Neutral",
+    moodEmoji: "😐",
+    dayStreak: 5,
+    weeklyProgress: 79,
+    XP: 50,
+    level: "Level 3",
+    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face&auto=format"
+  });
 
   const navigateTo = (page) => {
     setCurrentPage(page);
@@ -63,6 +58,15 @@ function App() {
     setShowGamesMenu(!showGamesMenu);
   };
 
+  const handleLogout = () => {
+    // Add your logout logic here
+    console.log('Logging out...');
+    // Example: Clear user data, redirect to login, etc.
+    // localStorage.clear();
+    // window.location.href = '/login';
+    alert('Logout functionality ');
+  };
+
   const fetchMoodStats = async () => {
     try {
       const response = await fetch('http://127.0.0.1:5000/mood_graph_data');
@@ -71,7 +75,6 @@ function App() {
       }
       const data = await response.json();
       
-      // Process the data to get emotion counts
       const emotionCounts = {};
       const emotions = Object.keys(data).filter(key => key !== 'timestamps');
       emotions.forEach(emotion => {
@@ -81,7 +84,6 @@ function App() {
       setMoodStats(emotionCounts);
     } catch (err) {
       console.error("Error fetching mood stats:", err);
-      // Set default empty stats to prevent chart errors
       setMoodStats({});
     }
   };
@@ -119,22 +121,33 @@ function App() {
       default:
         return (
           <>
-            {/* Profile Section */}
-            <section className="profile-section">
-              <div className="profile-card">
-                <img src="https://via.placeholder.com/80" alt="Profile" className="avatar" />
-                <div className="profile-info">
-                  <h2>Sarah Johnson</h2>
-                  <p className="mood">Current Mood: <span className="mood-emoji">😊</span> Happy</p>
-                  <div className="quick-stats">
-                    <div className="stat">
-                      <span className="stat-value">7</span>
-                      <span className="stat-label">Day Streak</span>
-                    </div>
-                    <div className="stat">
-                      <span className="stat-value">85%</span>
-                      <span className="stat-label">Weekly Progress</span>
-                    </div>
+            {/* Compact Profile Section - Only Name, Mood, and Logout */}
+            <section className="profile-section compact">
+              <div className="profile-card compact">
+                <div className="profile-header compact">
+                  <div className="avatar-container compact">
+                    <img 
+                      src={userProfile.avatar} 
+                      alt="Profile" 
+                      className="avatar compact" 
+                      onError={(e) => {
+                        e.target.src = "https://via.placeholder.com/60/6C63FF/FFFFFF?text=C";
+                      }}
+                    />
+                    <div className="status-indicator online"></div>
+                  </div>
+                  <div className="profile-info compact">
+                    <h2 className="user-name compact">{userProfile.name}</h2>
+                    <p className="mood-status compact">
+                      <span className="mood-emoji">{userProfile.moodEmoji}</span>
+                      {userProfile.currentMood}
+                    </p>
+                  </div>
+                  <div className="profile-actions compact">
+                    <button className="btn-logout" onClick={handleLogout}>
+                      <i className="fas fa-sign-out-alt"></i>
+                      Logout
+                    </button>
                   </div>
                 </div>
               </div>
@@ -142,17 +155,42 @@ function App() {
 
             {/* Dashboard Grid */}
             <div className="dashboard-grid">
-              {/* Journal Section */}
-              <section className="dashboard-card journal-section">
-                <h3><i className="fas fa-book"></i> Daily Journal</h3>
-                <div className="journal-input">
-                  <input type="date" className="date-picker" />
-                  <textarea placeholder="How are you feeling today?"></textarea>
-                  <button className="btn-primary">Save Entry</button>
+              {/* Progress Stats Section - NEW SEPARATE SECTION */}
+              <section className="dashboard-card stats-section">
+                <h3><i className="fas fa-chart-bar"></i> Your Progress</h3>
+                <div className="stats-grid">
+                  <div className="stat-card">
+                    <div className="stat-icon">🔥</div>
+                    <div className="stat-content">
+                      <span className="stat-value">{userProfile.dayStreak}</span>
+                      <span className="stat-label">Day Streak</span>
+                    </div>
+                  </div>
+                  <div className="stat-card">
+                    <div className="stat-icon">📈</div>
+                    <div className="stat-content">
+                      <span className="stat-value">{userProfile.weeklyProgress}%</span>
+                      <span className="stat-label">Weekly Progress</span>
+                    </div>
+                  </div>
+                  <div className="stat-card">
+                    <div className="stat-icon">⚡</div>
+                    <div className="stat-content">
+                      <span className="stat-value">{userProfile.totalSessions}</span>
+                      <span className="stat-label">XP</span>
+                    </div>
+                  </div>
+                  <div className="stat-card">
+                    <div className="stat-icon">⭐</div>
+                    <div className="stat-content">
+                      <span className="stat-value">{userProfile.level}</span>
+                      <span className="stat-label">Achievement</span>
+                    </div>
+                  </div>
                 </div>
               </section>
 
-              {/* Mood Tracker Graph (Real-time) */}
+              {/* Mood Tracker Graph */}
               <section className="dashboard-card mood-tracker">
                 <h3><i className="fas fa-chart-line"></i> Mood Trend (Last 24 hrs)</h3>
                 <div style={{ width: '100%', height: '250px' }}>
@@ -223,22 +261,10 @@ function App() {
                 </button>
               </section>
 
-              {/* Chatbot Interface */}
-              <section className="dashboard-card chatbot-section">
-                <h3><i className="fas fa-robot"></i> Chat with Mindy</h3>
-                <div className="chat-container">
-                  <div className="chat-messages">
-                    <div className="message bot">
-                      Hello! How can I help you today?
-                    </div>
-                  </div>
-                  <div className="chat-input">
-                    <input type="text" placeholder="Type your message" />
-                    <button className="btn-send">
-                      <i className="fas fa-paper-plane"></i>
-                    </button>
-                  </div>
-                </div>
+              {/* Daily Tasks */}
+              <section className="dashboard-card tasks-section">
+                <h3><i className="fas fa-tasks"></i> Daily Tasks</h3>
+                <DailyTasks />
               </section>
 
               {/* Games Section */}
@@ -258,12 +284,6 @@ function App() {
                     <span>Pet Playground</span>
                   </div>
                 </div>
-              </section>
-
-              {/* Daily Tasks */}
-              <section className="dashboard-card tasks-section">
-                <h3><i className="fas fa-tasks"></i> Daily Tasks</h3>
-                <DailyTasks />
               </section>
             </div>
           </>
